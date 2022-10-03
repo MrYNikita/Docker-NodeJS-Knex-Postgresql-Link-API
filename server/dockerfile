@@ -1,0 +1,6 @@
+FROM node:12-alpine
+WORKDIR /app
+ADD server.mjs /app/
+ADD package.json /app/
+CMD npm i && npm start
+EXPOSE 8000
