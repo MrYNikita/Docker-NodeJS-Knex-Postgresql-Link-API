@@ -4,6 +4,7 @@ import exporess from 'express';
 
 const {
 
+    dbName,
     dbUser,
     dbPass,
     dbHost,
@@ -12,4 +13,43 @@ const {
 
 } = process.env;
 
-console.log(serverHost, serverPort);
+const db = knex({
+
+    client: 'pg',
+    connection: {
+
+        db: dbName,
+        user: dbUser,
+        host: dbHost,
+        pass: dbPass,
+
+    },
+
+});
+
+const app = express(), urlencodedParser = express.urlencoded({ extended: false });
+
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+
+    res.setHeader('Content-Type', 'text/html')
+    res.end(readFileSync('public/index.html'));
+
+})
+    .get('/links/:id', (req, res) => {
+
+        
+
+    })
+    .post('/links', urlencodedParser, (req, res) => {
+
+        
+        
+
+    })
+    .listen(port, 'localhost', () => {
+
+        console.log(`Server listen port: ${port}`);
+
+    });
