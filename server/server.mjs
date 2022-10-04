@@ -1,6 +1,6 @@
 import pg from 'pg';
 import knex from 'knex';
-import exporess from 'express';
+import express from 'express';
 
 const {
 
@@ -48,8 +48,8 @@ app.get('/', (req, res) => {
         
 
     })
-    .listen(port, 'localhost', () => {
+    .listen(serverPort, 'localhost', () => {
 
-        console.log(`Server listen port: ${port}`);
+        console.log(`Server listen port: ${serverPort}`);
 
     });
