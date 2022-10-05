@@ -28,7 +28,7 @@ services:
     depends_on:
       - db
     environment:
-      - db=db
+      - dbName=db
       - dbUser=user
       - dbPass=123
       - dbPort=5432

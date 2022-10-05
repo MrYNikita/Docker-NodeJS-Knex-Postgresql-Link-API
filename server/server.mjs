@@ -8,6 +8,7 @@ const {
     dbUser,
     dbPass,
     dbHost,
+    dbPort,
     serverHost = '127.0.0.1',
     serverPort = '8000',
 
@@ -16,16 +17,11 @@ const {
 const db = knex({
 
     client: 'pg',
-    connection: {
-
-        db: dbName,
-        user: dbUser,
-        host: dbHost,
-        pass: dbPass,
-
-    },
+    connection: `postgres://${dbUser}:${dbPass}@db:${dbPort}/${dbName}`,
 
 });
+
+db('links').insert({ link: 'other/link' }).then(() => {});
 
 const app = express(), urlencodedParser = express.urlencoded({ extended: false });
 
@@ -39,13 +35,13 @@ app.get('/', (req, res) => {
 })
     .get('/links/:id', (req, res) => {
 
-        
+
 
     })
     .post('/links', urlencodedParser, (req, res) => {
 
-        
-        
+
+
 
     })
     .listen(serverPort, 'localhost', () => {
