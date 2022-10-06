@@ -3,7 +3,7 @@ services:
   db:
     image: postgres
     ports:
-    - 8000:8000
+    - ${POSTGRES_PORT:-5432}:5432
     build: {
       context: /db,
       dockerfile: dockerfile
@@ -18,7 +18,7 @@ services:
   server:
     image: server
     ports:
-    - ${POSTGRES_PORT:-5432}:5432
+      - 8000:8000
     build: {
       context: /server,
       dockerfile: dockerfile
