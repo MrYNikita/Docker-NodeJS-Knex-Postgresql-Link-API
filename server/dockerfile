@@ -4,6 +4,7 @@ ADD app.js /app/
 ADD bin /app/bin
 ADD routes /app/routes
 ADD public /app/public
+ADD db /app/db
 ADD package.json /app/
 CMD npm i && npm start
 EXPOSE 3000

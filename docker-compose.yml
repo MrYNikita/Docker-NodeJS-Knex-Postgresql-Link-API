@@ -11,9 +11,9 @@ services:
     networks:
       - net
     environment:
-      - POSTGRES_DB=db
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=links
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     container_name: db
   rmq:
     image: rabbitmq
@@ -40,11 +40,11 @@ services:
       - db
       - rmq
     environment:
-      - dbHost=db
       - dbName=${POSTGRES_DB}
       - dbUser=${POSTGRES_USER}
       - dbPass=${POSTGRES_PASSWORD}
       - dbPort=${POSTGRES_PORT}
+      - dbHost=db
     container_name: server
 networks:
   net:
