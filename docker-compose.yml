@@ -11,9 +11,9 @@ services:
     networks:
       - net
     environment:
-      - POSTGRES_DB=db
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=links
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     container_name: db 
   server:
     image: server
@@ -28,10 +28,11 @@ services:
     depends_on:
       - db
     environment:
-      - dbName=db
-      - dbUser=user
-      - dbPass=123
+      - dbName=links
+      - dbUser=postgres
+      - dbPass=postgres
       - dbPort=5432
+      - dbHost=db
     container_name: server
 networks:
   net:
