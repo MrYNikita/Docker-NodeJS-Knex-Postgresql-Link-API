@@ -14,7 +14,18 @@ services:
       - POSTGRES_DB=links
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    container_name: db 
+    container_name: db
+  rmq:
+    image: rabbitmq
+    ports:
+      - 15672:15672
+    build: {
+      context: /rmq,
+      dockerfile: dockerfile
+    }
+    networks:
+      - net
+    container_name: rmq
   server:
     image: server
     ports:
@@ -27,11 +38,12 @@ services:
       - net
     depends_on:
       - db
+      - rmq
     environment:
-      - dbName=links
-      - dbUser=postgres
-      - dbPass=postgres
-      - dbPort=5432
+      - dbName=${POSTGRES_DB}
+      - dbUser=${POSTGRES_USER}
+      - dbPass=${POSTGRES_PASSWORD}
+      - dbPort=${POSTGRES_PORT}
       - dbHost=db
     container_name: server
 networks:
