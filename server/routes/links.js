@@ -11,11 +11,13 @@ router.get('/:id', function (req, res, next) {
     });
 });
 
-router.put('', function (req, res, next) {
-    db('links').insert({status: req.body.status}).then(() => {
+router.post('', function (req, res, next) {
+    console.log(req.body)
+    db('links').insert(req.body).then(() => {
         res.statusCode = 200;
         res.end(``);
     });
 });
+
 
 module.exports = router;
