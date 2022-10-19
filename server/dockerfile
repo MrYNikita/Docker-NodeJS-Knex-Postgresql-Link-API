@@ -1,7 +1,9 @@
 FROM node:12-alpine
 WORKDIR /app
+ADD app.js /app/
+ADD bin /app/bin
+ADD routes /app/routes
 ADD public /app/public
-ADD server.mjs /app/
 ADD package.json /app/
 CMD npm i && npm start
-EXPOSE 8000
+EXPOSE 3000
