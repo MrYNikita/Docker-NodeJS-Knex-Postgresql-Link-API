@@ -1,4 +1,5 @@
 create table links (
     id serial primary key,
-    link varchar (255) unique not null 
+    name varchar (255) unique not null 
+    status varchar (255) not null,
 );
