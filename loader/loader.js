@@ -8,17 +8,6 @@ const {
 
 } = process.env;
 
-console.log(`
-
-    --------------
-
-    USER: ${user}
-    PASS: ${pass}
-
-    -------------
-
-`);
-
 amqp.connect(`amqp://${user}:${pass}@rmq:5672/%2F`, function (error0, connection) {
 
     if (error0) throw error0;
@@ -36,7 +25,20 @@ amqp.connect(`amqp://${user}:${pass}@rmq:5672/%2F`, function (error0, connection
         });
 
         channel.consume(queue, function (msg) {
-
+            
+            const content = JSON.parse(msg.content.toString());
+            fetch(content.name)
+                .then((res) => {
+                    fetch(`http://server:3000/links/${content.id}`, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        method: 'PUT',
+                        body: JSON.stringify({
+                            status: res.status
+                        })
+                    });
+                });
 
             console.log(" [x] Received %s", msg.content.toString());
 

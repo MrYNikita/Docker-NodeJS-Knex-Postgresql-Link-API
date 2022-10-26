@@ -66,6 +66,8 @@ services:
       - dbPass=postgres
       - dbPort=5432
       - dbHost=db
+      - rabbitUser=myname
+      - rabbitPass=321
     container_name: server
 networks:
   net:
