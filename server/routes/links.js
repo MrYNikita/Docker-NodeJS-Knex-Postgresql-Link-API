@@ -11,7 +11,17 @@ router.get('/:id', function (req, res) {
 });
 
 router.post('', function (req, res) {
-    db('links').insert(req.body).then(() => {
+    db('links').insert(req.body).then((test) => {
+        db('links').max('id').first().then(link => {
+            console.log('link: ', link.max);
+
+            const sendObj = {
+                id: link.max,
+                name: req.body.name,
+            };
+        });
+
+
         res.statusCode = 200;
         res.end(``);
     });
