@@ -2,4 +2,3 @@ FROM node:12-alpine
 WORKDIR /app
 COPY loader.js /app/
 CMD node loader.js
-EXPOSE 3000
