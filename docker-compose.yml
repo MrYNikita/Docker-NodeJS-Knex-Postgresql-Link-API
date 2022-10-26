@@ -3,7 +3,7 @@ services:
   db:
     image: postgres
     ports:
-    - 5432:5432
+    - "5432:5432"
     build: {
       context: /db,
       dockerfile: dockerfile
@@ -21,7 +21,7 @@ services:
   rmq:
     image: rabbitmq:management
     ports:
-      - 15672:15672
+      - "15672:15672"
     networks:
       - net
     hostname: rmq
@@ -46,10 +46,11 @@ services:
       timeout: 10s
       retries: 5
     container_name: loader
+    restart: on-failure
   server:
     image: server
     ports:
-      - 3000:3000
+      - "3000:3000"
     build: {
       context: /server,
       dockerfile: dockerfile
