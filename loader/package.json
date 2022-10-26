@@ -1,0 +1,14 @@
+{
+  "name": "loader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "loader.js",
+  "scripts": {
+    "start": "node loader.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  },
+  "author": "",
+  "license": "ISC"
+}

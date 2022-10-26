@@ -1,4 +1,5 @@
 FROM node:12-alpine
 WORKDIR /app
 COPY loader.js /app/
-CMD node loader.js
+COPY package.json /app/
+CMD npm i && npm start

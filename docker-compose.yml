@@ -3,7 +3,7 @@ services:
   db:
     image: postgres
     ports:
-    - ${POSTGRES_PORT:-5432}:5432
+    - 5432:5432
     build: {
       context: /db,
       dockerfile: dockerfile
@@ -32,6 +32,18 @@ services:
     build:
       context: /loader
       dockerfile: dockerfile
+    networks:
+      - net
+    depends_on:
+      - rmq
+    environment:
+      - user=myname
+      - pass=321
+    healthcheck:
+      test: ["cmd", "curl", "-f", "http://localhost:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     container_name: loader
   server:
     image: server
@@ -41,16 +53,17 @@ services:
       context: /server,
       dockerfile: dockerfile
     }
+    restart: on-failure
     networks:
       - net
     depends_on:
       - db
       - rmq
     environment:
-      - dbName=${POSTGRES_DB}
-      - dbUser=${POSTGRES_USER}
-      - dbPass=${POSTGRES_PASSWORD}
-      - dbPort=${POSTGRES_PORT}
+      - dbName=links
+      - dbUser=postgres
+      - dbPass=postgres
+      - dbPort=5432
       - dbHost=db
     container_name: server
 networks:
