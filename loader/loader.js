@@ -1,4 +1,4 @@
-const amqp = require('amqplib');
+const amqp = require('amqplib/callback_api');
 
 const {
 
@@ -26,7 +26,9 @@ amqp.connect(`amqp://${user}:${pass}@rmq:5672/%2F`, function (error0, connection
 
         if (error1) throw error1;
 
-        channel.assertQueue('links ', {
+        const queue = 'links';
+
+        channel.assertQueue(queue, {
 
             durable: false,
 
