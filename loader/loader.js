@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 const amqp = require('amqplib/callback_api');
 
 const {
@@ -35,6 +36,7 @@ amqp.connect(`amqp://${user}:${pass}@rmq:5672/%2F`, function (error0, connection
         });
 
         channel.consume(queue, function (msg) {
+
 
             console.log(" [x] Received %s", msg.content.toString());
 
