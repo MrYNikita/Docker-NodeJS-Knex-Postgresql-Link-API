@@ -22,11 +22,12 @@ services:
     image: rabbitmq:management
     ports:
       - 15672:15672
+    networks:
+      - net
+    hostname: rmq
     environment:
       - RABBITMQ_DEFAULT_USER=myname
       - RABBITMQ_DEFAULT_PASS=321
-    networks:
-      - net
     container_name: rmq
   loader:
     build:
