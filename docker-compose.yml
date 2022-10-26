@@ -28,6 +28,11 @@ services:
     networks:
       - net
     container_name: rmq
+  loader:
+    build:
+      context: /loader
+      dockerfile: dockerfile
+    container_name: loader
   server:
     image: server
     ports:
