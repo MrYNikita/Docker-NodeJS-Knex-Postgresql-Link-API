@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.9'
 services:
   db:
     image: postgres
@@ -8,6 +8,7 @@ services:
       context: /db,
       dockerfile: dockerfile
     }
+    restart: always
     networks:
       - net
     environment:
@@ -15,14 +16,15 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     container_name: db
+    volumes:
+      - dbdata:/var/lib/postgresql/data
   rmq:
-    image: rabbitmq
+    image: rabbitmq:management
     ports:
       - 15672:15672
-    build: {
-      context: /rmq,
-      dockerfile: dockerfile
-    }
+    environment:
+      - RABBITMQ_DEFAULT_USER=myname
+      - RABBITMQ_DEFAULT_PASS=321
     networks:
       - net
     container_name: rmq
@@ -49,3 +51,5 @@ services:
 networks:
   net:
     driver: bridge
+volumes:
+  dbdata:
