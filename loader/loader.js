@@ -10,6 +10,8 @@ const {
 
 amqp.connect(`amqp://${user}:${pass}@rmq:5672/%2F`, function (error0, connection) {
 
+    // todo в process.env
+
     if (error0) throw error0;
 
     connection.createChannel(function (error1, channel) {
