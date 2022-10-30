@@ -2,10 +2,9 @@ const fetch = require('node-fetch');
 const amqp = require('amqplib/callback_api');
 
 const {
-
     user,
     pass,
-
+    WEB_BASE_URL,
 } = process.env;
 
 amqp.connect(`amqp://${user}:${pass}@rmq:5672/%2F`, function (error0, connection) {
@@ -31,7 +30,7 @@ amqp.connect(`amqp://${user}:${pass}@rmq:5672/%2F`, function (error0, connection
             const content = JSON.parse(msg.content.toString());
             fetch(content.name)
                 .then((res) => {
-                    fetch(`http://server:3000/links/${content.id}`, {
+                    fetch(`http://${WEB_BASE_URL}/links/${content.id}`, {
                         headers: {
                             'Content-Type': 'application/json'
                         },

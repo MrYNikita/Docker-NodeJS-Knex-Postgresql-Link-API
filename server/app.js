@@ -20,6 +20,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// adding header for check nginx server name
+app.use(function (req, res, next) {
+  res.append('Server_name', process.env.name);
+  next();
+})
+
 app.use('/users', usersRouter);
 app.use('/links', linksRouter);
 

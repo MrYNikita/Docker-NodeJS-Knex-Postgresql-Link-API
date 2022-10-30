@@ -43,14 +43,26 @@ services:
       - net
     depends_on:
       - rmq
+      - nginx
     environment:
       - user=myname
       - pass=321
+      - WEB_BASE_URL= http://nginx:80
     container_name: loader
-  server:
-    image: server
+  nginx:
+    build: nginx/.
     ports:
-      - "3000:3000"
+      - "80:80"
+    depends_on:
+      - server1
+      - server2
+    links:
+      - server1
+      - server2
+    networks:
+      - net
+  server1:
+    image: server
     build: {
       context: /server,
       dockerfile: dockerfile
@@ -68,7 +80,30 @@ services:
       - dbHost=db
       - rabbitUser=myname
       - rabbitPass=321
-    container_name: server
+      - name=server1
+    container_name: server1
+
+  server2:
+    image: server
+    build: {
+      context: /server,
+      dockerfile: dockerfile
+    }
+    networks:
+      - net
+    depends_on:
+      - db
+      - rmq
+    environment:
+      - dbName=links
+      - dbUser=postgres
+      - dbPass=postgres
+      - dbPort=5432
+      - dbHost=db
+      - rabbitUser=myname
+      - rabbitPass=321
+      - name=server2
+    container_name: server2
 networks:
   net:
     driver: bridge
