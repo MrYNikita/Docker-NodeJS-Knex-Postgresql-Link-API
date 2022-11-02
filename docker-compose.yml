@@ -64,7 +64,8 @@ services:
     environment:
       - user=myname
       - pass=321
-      - WEB_BASE_URL= http://nginx:80
+      - WEB_BASE_URL=nginx:80
+      - REDIS_NAME=redis
     container_name: loader
   server1:
     image: server
