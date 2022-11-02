@@ -1,6 +1,7 @@
-FROM node:12-alpine
+FROM node:14.19-alpine3.15
 WORKDIR /app
 COPY package.json /app/
 RUN npm i
+RUN npm i -P redis
 COPY loader.js /app/
 CMD npm start

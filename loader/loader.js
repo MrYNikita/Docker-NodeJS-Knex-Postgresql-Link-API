@@ -2,19 +2,7 @@ const fetch = require('node-fetch');
 const { createClient } = require('redis');
 const amqp = require('amqplib/callback_api');
 
-const {
-
-    nameRedis = 'user',
-    passRedis = '123',
-    hostRedis = 'localhost',
-
-} = process.env;
-
-const client = createClient({
-
-    url: `redis://${hostRedis}`,
-
-});
+const client = createClient(6379, 'localhost');
 
 const {
     user,
