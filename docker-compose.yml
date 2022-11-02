@@ -34,6 +34,20 @@ services:
       - RABBITMQ_DEFAULT_USER=myname
       - RABBITMQ_DEFAULT_PASS=321
     container_name: rmq
+  nginx:
+    build: nginx/.
+    ports:
+      - "80:80"
+    depends_on:
+      - server1
+      - server2
+    links:
+      - server1
+      - server2
+    networks:
+      - net
+  redis:
+    image: redis
   loader:
     build:
       context: /loader
@@ -49,18 +63,6 @@ services:
       - pass=321
       - WEB_BASE_URL= http://nginx:80
     container_name: loader
-  nginx:
-    build: nginx/.
-    ports:
-      - "80:80"
-    depends_on:
-      - server1
-      - server2
-    links:
-      - server1
-      - server2
-    networks:
-      - net
   server1:
     image: server
     build: {
@@ -82,7 +84,6 @@ services:
       - rabbitPass=321
       - name=server1
     container_name: server1
-
   server2:
     image: server
     build: {

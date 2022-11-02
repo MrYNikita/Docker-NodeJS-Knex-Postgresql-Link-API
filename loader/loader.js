@@ -1,5 +1,20 @@
 const fetch = require('node-fetch');
+const { createClient } = require('redis');
 const amqp = require('amqplib/callback_api');
+
+const {
+
+    nameRedis = 'user',
+    passRedis = '123',
+    hostRedis = 'localhost',
+
+} = process.env;
+
+const client = createClient({
+
+    url: `redis://${hostRedis}`,
+
+});
 
 const {
     user,
@@ -8,8 +23,6 @@ const {
 } = process.env;
 
 amqp.connect(`amqp://${user}:${pass}@rmq:5672/%2F`, function (error0, connection) {
-
-    // todo в process.env
 
     if (error0) throw error0;
 
