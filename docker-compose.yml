@@ -48,6 +48,8 @@ services:
       - net
   redis:
     image: redis
+    networks:
+      - net
   loader:
     build:
       context: /loader
@@ -58,6 +60,7 @@ services:
     depends_on:
       - rmq
       - nginx
+      - redis
     environment:
       - user=myname
       - pass=321

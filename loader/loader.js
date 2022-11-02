@@ -2,7 +2,16 @@ const fetch = require('node-fetch');
 const { createClient } = require('redis');
 const amqp = require('amqplib/callback_api');
 
-const client = createClient(6379, 'localhost');
+const client = createClient({
+    url: 'redis://redis:6379'
+});
+
+client.on('error', (err) => console.log('Redis Client Error', err));
+
+client.connect().then(() => {
+    console.log('Connected!');
+});
+
 
 const {
     user,
